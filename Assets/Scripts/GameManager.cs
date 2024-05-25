@@ -96,12 +96,7 @@ public class GameManager : MonoBehaviour
         textTimer.text = timerFull.ToString();
         if (timerFull == 0)
         {
-            EventLose.Invoke();
-            isGameEnded = true;
-            CancelInvoke();
-            ScreenEnd.SetActive(true);
-            textScoreFinal.text = "Score: " + textScore.text;
-
+            OnLose();
         }
     }
 
@@ -115,6 +110,15 @@ public class GameManager : MonoBehaviour
     {
         currentLevel++;
        LoadLevel(currentLevel - 1);
+    }
+
+    public void OnLose()
+    {
+        EventLose.Invoke();
+        isGameEnded = true;
+        CancelInvoke();
+        ScreenEnd.SetActive(true);
+        textScoreFinal.text = "Score: " + textScore.text;
     }
 
     private void UpdateBestScore()

@@ -15,6 +15,10 @@ public class FoxHitter : MonoBehaviour
 
     public UnityEvent EventCoinCollected;
 
+    public UnityEvent EventEnemyCollide;
+
+    private bool isLose = false;
+
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (hit.gameObject.CompareTag("Hittable"))
@@ -27,6 +31,12 @@ public class FoxHitter : MonoBehaviour
             HitEffect(obj_rb, hit);
             Score3DEffect(ho);
             GetCoins(ho);
+        }
+        
+        if (hit.gameObject.CompareTag("Enemy") && !isLose)
+        {
+            EventEnemyCollide.Invoke();
+            isLose = true;
         }
     }
 

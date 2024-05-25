@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Hittable
   - Hitted
+  - Enemy
   layers:
   - Default
   - TransparentFX
