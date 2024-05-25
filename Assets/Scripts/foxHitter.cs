@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Unity.Burst.CompilerServices;
+using UnityEngine.Events;
 
 public class FoxHitter : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class FoxHitter : MonoBehaviour
     public TextMeshPro foxScore3D;
 
     public GameObject[] hitParticles;
+
+    public UnityEvent EventCoinCollected;
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
@@ -24,8 +27,6 @@ public class FoxHitter : MonoBehaviour
             HitEffect(obj_rb, hit);
             Score3DEffect(ho);
             GetCoins(ho);
-
-
         }
     }
 
@@ -54,6 +55,7 @@ public class FoxHitter : MonoBehaviour
 
     public void GetCoins(HittableObjects ho)
     {
+        EventCoinCollected.Invoke();
         int actualCoins = PlayerPrefs.GetInt("nbCoins", 0);
         if(actualCoins + ho.coins > 9999999)
         {

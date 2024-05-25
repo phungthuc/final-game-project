@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Data;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -47,6 +48,8 @@ public class GameManager : MonoBehaviour
     private int currentLevel = 1;
 
     private bool isGamePlaying = false;
+
+    public UnityEvent EventLose;
 
 
     private void Awake()
@@ -93,6 +96,7 @@ public class GameManager : MonoBehaviour
         textTimer.text = timerFull.ToString();
         if (timerFull == 0)
         {
+            EventLose.Invoke();
             isGameEnded = true;
             CancelInvoke();
             ScreenEnd.SetActive(true);

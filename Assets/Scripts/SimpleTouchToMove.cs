@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SimpleTouchToMove : MonoBehaviour
 {
     Touch touch;
     Vector2 initPos;
     Vector2 direction;
-
+    
     public CharacterController petController;
     Vector3 moveDirection;
     public float petSpeed = 5.0f;
@@ -25,6 +26,8 @@ public class SimpleTouchToMove : MonoBehaviour
     public GameObject jumpeffect;
 
     public GameManager gameManager;
+
+    public UnityEvent EventJumped;
 
     private void Awake()
     {
@@ -121,6 +124,7 @@ public class SimpleTouchToMove : MonoBehaviour
     {
         if (petController.isGrounded)
         {
+            EventJumped.Invoke();
             Instantiate(jumpeffect, transform.position, Quaternion.identity);
             moveDirection.y += jumpForce;
         }
